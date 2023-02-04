@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,9 @@ Route::middleware('auth')
     ->prefix('main')
     ->group(function () {
         Route::view('/', 'main.index');
+
+        Route::resource('classes', StudentClassController::class)
+            ->names([
+                'index' => 'classes',
+            ]);
     });

@@ -15,9 +15,7 @@
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                Class
-            </a>
+            <a class="nav-link" href="{{ route('classes') }}">Classes</a>
         </li>
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
@@ -42,7 +40,7 @@
     </header>
     <div class="body flex-grow-1 px-3">
         <div class="container-lg">
-            <!-- /.row-->
+            @yield('content')
         </div>
     </div>
     <footer class="footer">
