@@ -27,7 +27,5 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')
     ->prefix('main')
     ->group(function () {
-        Route::get('/', function () {
-            return 'OK';
-        });
+        Route::view('/', 'main.index');
     });
