@@ -6,13 +6,14 @@
         <p class="card-text fw-bold">Log Pool</p>
     </div>
     <div class="card-body">
-        <form action="" method="get">
-            <select class="form-select" aria-label="Log Pool" name="pool">
-                <option disabled selected>Pool list</option>
+        <form action="{{ route('logs') }}" method="get">
+            <select class="form-select mb-3" aria-label="Log Pool" name="pool">
+                <option disabled selected>Select date</option>
                 @foreach($pools as $p)
                     <option value="{{ $p->id }}">{{ $p->date }}</option>
                 @endforeach
             </select>
+            <button class="btn btn-primary btn-sm">Go</button>
         </form>
     </div>
 </div>

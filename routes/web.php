@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\LogPoolController;
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,9 @@ Route::middleware('auth')
 
         Route::get('/logpool', [LogPoolController::class, 'index'])->name('logpool.index');
         Route::post('/logpool', [LogPoolController::class, 'store']);
+
+        Route::get('/logs', [LogController::class, 'show'])->name('logs');
+        Route::get('/logs/{logPool}', [LogController::class, 'show'])->name('logs.show');
+        Route::get('/logs/{logPool}/{class}', [LogController::class, 'showStudents'])->name('logs.show.students');
+        Route::post('/logs/{logPool}/{class}', [LogController::class, 'store']);
     });

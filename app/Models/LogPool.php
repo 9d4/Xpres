@@ -12,4 +12,8 @@ class LogPool extends Model
     protected $fillable = [
         'date',
     ];
+
+    public function logs() {
+        return $this->hasMany(Log::class, 'log_pool_id');
+    }
 }
