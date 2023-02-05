@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentClassController;
+use App\Http\Controllers\LogPoolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,7 @@ Route::middleware('auth')
             ]);
         Route::get('classes/{class}/students', [StudentController::class, 'studentsInClass'])->name('classes.students');
         Route::post('classes/{class}/students', [StudentController::class, 'storeStudentsInClass']);
+
+        Route::get('/logpool', [LogPoolController::class, 'index'])->name('logpool.index');
+        Route::post('/logpool', [LogPoolController::class, 'store']);
     });
