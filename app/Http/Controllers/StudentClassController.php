@@ -39,7 +39,15 @@ class StudentClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'className' => 'required',
+        ]);
+
+        StudentClass::create([
+            'name' => $request->className,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
