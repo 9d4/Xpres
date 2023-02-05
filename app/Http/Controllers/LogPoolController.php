@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LogPoolController extends Controller
 {
     public function index() {
-        $pools = LogPool::query()->orderBy('date')->get();
+        $pools = LogPool::query()->orderByDesc('date')->get();
 
         return view('main.logpool.list', [
             'pools' => $pools,
