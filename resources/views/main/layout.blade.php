@@ -43,7 +43,7 @@
             @yield('content')
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer mt-3">
       <div>© 2023
           <a href="//dimanda.my.id">telo</a>
       </div>

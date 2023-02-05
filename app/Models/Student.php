@@ -13,4 +13,8 @@ class Student extends Model
         'num',
         'name',
     ];
+
+    public function studentClass() {
+        return $this->belongsTo(StudentClass::class, 'class_id');
+    }
 }

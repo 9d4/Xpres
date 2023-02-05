@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentClassController;
 
 /*
@@ -34,4 +35,6 @@ Route::middleware('auth')
             ->names([
                 'index' => 'classes',
             ]);
+        Route::get('classes/{class}/students', [StudentController::class, 'studentsInClass'])->name('classes.students');
+        Route::post('classes/{class}/students', [StudentController::class, 'storeStudentsInClass']);
     });

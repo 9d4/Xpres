@@ -16,7 +16,9 @@
                     <tbody>
                     @foreach($classes as $c)
                         <tr>
-                            <td>{{ $c->name }}</td>
+                            <td>
+                                <a href="{{ route('classes.students', $c->id) }}">{{ $c->name }}</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
