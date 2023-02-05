@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+    container_name: tekaje_xpres-web
+    environment:
+      # replace based on the owner of current dir
+      - MAIN_USER=1001
+    volumes:
+      - '.:/app'
+      - '.env:/app/.env'
+      - './php.ini:/opt/docker/etc/php/php.ini'
+    ports:
+      - 7100:80
+    restart: always
+
+  pgsql:
+    image: postgres:15-alpine
+    container_name: tekaje_xpres-db
+    ports:
+      - 7101:5432
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - tekaje_xpres_pgdata:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  tekaje_xpres_pgdata:
+
