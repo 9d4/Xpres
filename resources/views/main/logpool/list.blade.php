@@ -44,4 +44,22 @@
         </form>
     </div>
 </div>
+
+<div class="card mt-3">
+    <div class="card-header">
+        <p class="card-text fw-bold">Export</p>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('logs.export') }}" method="post">
+            @csrf
+            <select class="form-select mb-3" aria-label="Log Pool" name="pool">
+                <option disabled selected>Select date</option>
+                @foreach($pools as $p)
+                    <option value="{{ $p->id }}">{{ $p->date }}</option>
+                @endforeach
+            </select>
+            <button class="btn btn-primary btn-sm">Go</button>
+        </form>
+    </div>
+</div>
 @endsection

@@ -16,4 +16,12 @@ class Log extends Model
         'warming',
         'wearpack',
     ];
+
+    public function logPool() {
+        return $this->belongsTo(LogPool::class, 'log_pool_id');
+    }
+
+    public function student() {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 }

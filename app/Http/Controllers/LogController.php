@@ -2,13 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LogExport;
 use App\Models\Log;
 use App\Models\LogPool;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LogController extends Controller
 {
+    public function export(Request $request) {
+        $request->validate([
+            'pool' => 'required',
+        ]);
+
+        $logPool = LogPool::query()->find($request->pool);
+        if (!$logPool) abort(404);
+
+        return Excel::download(new LogExport($logPool), 'kuda.xlsx');
+    }
+
     public function show(Request $request, LogPool $logPool) {
         if ($pool = $request->get('pool')) {
             return redirect(route('logs.show', $pool));

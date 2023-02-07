@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\StudentClass;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
@@ -44,7 +45,35 @@ Route::middleware('auth')
         Route::post('/logpool', [LogPoolController::class, 'store']);
 
         Route::get('/logs', [LogController::class, 'show'])->name('logs');
+        Route::post('/logs', [LogController::class, 'export'])->name('logs.export');
         Route::get('/logs/{logPool}', [LogController::class, 'show'])->name('logs.show');
         Route::get('/logs/{logPool}/{class}', [LogController::class, 'showStudents'])->name('logs.show.students');
         Route::post('/logs/{logPool}/{class}', [LogController::class, 'store']);
+
+        Route::get('/tmp', function () {
+            $a = StudentClass::query()
+                ->find(4)
+                ->students()
+                ->with([
+                    'logs' => function($query) { $query->with('student')->where('log_pool_id', 2) ;},
+                ])
+                ->get()
+                ->pluck('logs')
+                ->flatten()
+            ;
+
+//            StudentClass::query()->get(
+
+//            $a = \App\Models\Log::query()
+//                ->with([
+//                    'student' => function($query) { $query->where('class_id', 4); }
+//                ])
+//                ->where('log_pool_id', 2)
+//                ->get()
+//                ->pluck('student')
+////                ->get();sl
+//            ;
+
+            return response(json_encode($a),200,['content-type' => 'application/json']);
+        });
     });
