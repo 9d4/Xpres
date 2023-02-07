@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\StudentToClassImport;
 use App\Models\Student;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -38,6 +40,21 @@ class StudentController extends Controller
 
             $student->save();
         }
+
+        return redirect()->back()->with('upload_success', true);
+    }
+
+    public function storeStudentsInClassXlsx(Request $request, StudentClass $class) {
+        $request->validate([
+            'studentsFile' => 'required|mimes:xlsx,xls',
+        ]);
+
+        $file = $request->file('studentsFile');
+
+//        Excel::imp/
+
+        Excel::import(new StudentToClassImport($class), $file);
+
 
         return redirect()->back()->with('upload_success', true);
     }

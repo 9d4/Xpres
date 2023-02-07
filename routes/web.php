@@ -39,7 +39,7 @@ Route::middleware('auth')
                 'index' => 'classes',
             ]);
         Route::get('classes/{class}/students', [StudentController::class, 'studentsInClass'])->name('classes.students');
-        Route::post('classes/{class}/students', [StudentController::class, 'storeStudentsInClass']);
+        Route::post('classes/{class}/students', [StudentController::class, 'storeStudentsInClassXlsx']);
 
         Route::get('/logpool', [LogPoolController::class, 'index'])->name('logpool.index');
         Route::post('/logpool', [LogPoolController::class, 'store']);
@@ -49,31 +49,4 @@ Route::middleware('auth')
         Route::get('/logs/{logPool}', [LogController::class, 'show'])->name('logs.show');
         Route::get('/logs/{logPool}/{class}', [LogController::class, 'showStudents'])->name('logs.show.students');
         Route::post('/logs/{logPool}/{class}', [LogController::class, 'store']);
-
-        Route::get('/tmp', function () {
-            $a = StudentClass::query()
-                ->find(4)
-                ->students()
-                ->with([
-                    'logs' => function($query) { $query->with('student')->where('log_pool_id', 2) ;},
-                ])
-                ->get()
-                ->pluck('logs')
-                ->flatten()
-            ;
-
-//            StudentClass::query()->get(
-
-//            $a = \App\Models\Log::query()
-//                ->with([
-//                    'student' => function($query) { $query->where('class_id', 4); }
-//                ])
-//                ->where('log_pool_id', 2)
-//                ->get()
-//                ->pluck('student')
-////                ->get();sl
-//            ;
-
-            return response(json_encode($a),200,['content-type' => 'application/json']);
-        });
     });
