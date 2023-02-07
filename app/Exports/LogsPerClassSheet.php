@@ -81,7 +81,7 @@ class LogsPerClassSheet implements FromCollection, WithHeadings, WithTitle, With
             'D' => ['font' => ['name' => 'Wingdings']],
             'E' => ['font' => ['name' => 'Wingdings']],
             'F' => ['font' => ['name' => 'Wingdings']],
-            1 => ['font' => ['bold' => true]],
+            1 => ['font' => ['bold' => true, 'name' => 'Calibri']],
         ];
     }
 }
