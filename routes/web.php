@@ -50,3 +50,10 @@ Route::middleware('auth')
         Route::get('/logs/{logPool}/{class}', [LogController::class, 'showStudents'])->name('logs.show.students');
         Route::post('/logs/{logPool}/{class}', [LogController::class, 'store']);
     });
+
+Route::middleware('auth')
+    ->group(function () {
+        Route::get('download/exampleimport', function () {
+            return \Illuminate\Support\Facades\Storage::disk('public')->download('exampleimport.xls');
+        })->name('download.exampleimport');
+    });

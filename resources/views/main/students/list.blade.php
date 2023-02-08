@@ -13,7 +13,10 @@
 </div>
 
 <div class="card mt-4">
-    <div class="card-header"><b>Import</b></div>
+    <div class="card-header">
+        <b>Import</b>
+        <a href="{{ route('download.exampleimport') }}" class="badge bg-success text-decoration-none ms-2" role="button">Get Example</a>
+    </div>
     <div class="card-body">
         @error('studentsFile')
         <div class="alert alert-warning">{{ $message }}</div>
@@ -21,9 +24,6 @@
         @if(session('upload_success'))
         <div class="alert alert-success">Uploaded!</div>
         @endif
-        <p class="card-text">Imported student will be in current class. Csv delimited with comma. See below example.</p>
-        <pre><code>912831,Name 1
-879697,Name 2</code></pre>
         <form method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
