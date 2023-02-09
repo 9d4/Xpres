@@ -51,10 +51,7 @@ class StudentController extends Controller
 
         $file = $request->file('studentsFile');
 
-//        Excel::imp/
-
         Excel::import(new StudentToClassImport($class), $file);
-
 
         return redirect()->back()->with('upload_success', true);
     }

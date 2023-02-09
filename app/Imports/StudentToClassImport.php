@@ -4,12 +4,12 @@ namespace App\Imports;
 
 use App\Models\Student;
 use App\Models\StudentClass;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithMappedCells;
 
-class StudentToClassImport implements ToModel, WithBatchInserts
+class StudentToClassImport implements ToCollection, WithBatchInserts
 {
     use Importable;
 
@@ -36,5 +36,24 @@ class StudentToClassImport implements ToModel, WithBatchInserts
     public function batchSize(): int
     {
         return 500;
+    }
+
+    public function collection(Collection $rows)
+    {
+        for ($i = 0; $i < count($rows); $i++) {
+            $row = $rows[$i];
+            if (count($row) < 2) continue;
+
+            try {
+                $this->class->students()->updateOrCreate(
+                    ['num' => intval($row[0])],
+                    [
+                        'name' => $row[1],
+                    ]
+                );
+            }catch (Exception $e) {
+                dd($e);
+            }
+        }
     }
 }
