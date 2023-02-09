@@ -27,7 +27,25 @@ class LogController extends Controller
             return redirect(route('logs.show', $pool));
         }
 
-        $classes = StudentClass::query()->orderBy('name')->get();
+        $classes = StudentClass::query()
+            ->withCount('students')
+            ->orderBy('name')
+            ->get()
+            ->groupBy(function ($class) {
+                $name = $class->name;
+                $parts = explode(' ', $name);
+                return implode(' ', array_slice($parts, 0, count($parts) - 1));
+            });
+        ;
+
+        foreach ($classes as $subClass) {
+            $subClass->students_count = 0;
+            foreach ($subClass as $c) {
+                $subClass->students_count += $c->students_count;
+
+                $c->href = route('logs.show.students', [$logPool->id, $c->id]);
+            }
+        }
 
         return view('main.log.classes', [
             'logPool' => $logPool,

@@ -27,6 +27,8 @@ class StudentClassController extends Controller
             $subClass->students_count = 0;
             foreach ($subClass as $c) {
                 $subClass->students_count += $c->students_count;
+
+                $c->href = route('classes.students', $c->id);
             }
         }
 
