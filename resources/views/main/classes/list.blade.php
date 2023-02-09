@@ -11,6 +11,7 @@
                     <a class="list-group-item list-group-item-action"
                        href="{{ route('classes.students', $c->id) }}">
                         {{ $c->name }}
+                        <span class="badge badge-sm bg-success">{{ $c->students_count }}</span>
                     </a>
                 @endforeach
             </div>

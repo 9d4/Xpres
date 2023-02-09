@@ -13,6 +13,7 @@ class StudentClassController extends Controller
     public function index()
     {
         $classes = StudentClass::query()
+            ->withCount('students')
             ->orderBy('name')
             ->get();
 
