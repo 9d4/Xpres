@@ -45,7 +45,7 @@
         <form action="{{ route('classes.update', $class->id) }}" method="post">
             @csrf
             @method('PUT')
-            <input type="text" class="form-control form-control-sm mb-3" name="className">
+            <input type="text" class="form-control form-control-sm mb-3" name="className" value="{{ $class->name }}">
             <button class="btn btn-sm btn-primary">Change</button>
         </form>
     </div>
