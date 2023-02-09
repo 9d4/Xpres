@@ -15,7 +15,13 @@ class StudentClassController extends Controller
         $classes = StudentClass::query()
             ->withCount('students')
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->groupBy(function ($class) {
+                $name = $class->name;
+                $parts = explode(' ', $name);
+                return implode(' ', array_slice($parts, 0, count($parts) - 1));
+            });
+        ;
 
         return view('main.classes.list', [
             'classes' => $classes,

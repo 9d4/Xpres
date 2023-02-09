@@ -6,15 +6,18 @@
             <p class="card-text fw-bold">Classes</p>
         </div>
         <div class="card-body">
-            <div class="list-group">
-                @foreach($classes as $c)
-                    <a class="list-group-item list-group-item-action"
-                       href="{{ route('classes.students', $c->id) }}">
-                        {{ $c->name }}
-                        <span class="badge badge-sm bg-success">{{ $c->students_count }}</span>
-                    </a>
-                @endforeach
-            </div>
+            @foreach($classes as $subclasskey => $subclass)
+                <b>{{ $subclasskey }}</b>
+                <div class="list-group mb-2">
+                    @foreach($subclass as $sc)
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('classes.students', $sc->id) }}">
+                            {{ $sc->name }}
+                            <span class="badge badge-sm bg-success">{{ $sc->students_count }}</span>
+                        </a>
+                    @endforeach
+                </div>
+            @endforeach
         </div>
     </div>
 
