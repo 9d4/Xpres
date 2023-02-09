@@ -19,7 +19,9 @@ class LogController extends Controller
         $logPool = LogPool::query()->find($request->pool);
         if (!$logPool) abort(404);
 
-        return Excel::download(new LogExport($logPool), 'kuda.xlsx');
+        $exportedName = "Xpres-export-" . $logPool->date . ".xlsx";
+
+        return Excel::download(new LogExport($logPool), $exportedName);
     }
 
     public function show(Request $request, LogPool $logPool) {
