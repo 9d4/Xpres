@@ -23,6 +23,13 @@ class StudentClassController extends Controller
             });
         ;
 
+        foreach ($classes as $subClass) {
+            $subClass->students_count = 0;
+            foreach ($subClass as $c) {
+                $subClass->students_count += $c->students_count;
+            }
+        }
+
         return view('main.classes.list', [
             'classes' => $classes,
         ]);
