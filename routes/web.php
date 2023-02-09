@@ -34,10 +34,10 @@ Route::middleware('auth')
     ->group(function () {
         Route::view('/', 'main.index');
 
-        Route::resource('classes', StudentClassController::class)
-            ->names([
-                'index' => 'classes',
-            ]);
+        Route::get('classes', [StudentClassController::class, 'index'])->name('classes');
+        Route::post('classes', [StudentClassController::class, 'store']);
+        Route::put('classes/{class}', [StudentClassController::class, 'update'])->name('classes.update');
+
         Route::get('classes/{class}/students', [StudentController::class, 'studentsInClass'])->name('classes.students');
         Route::post('classes/{class}/students', [StudentController::class, 'storeStudentsInClassXlsx']);
 
@@ -57,3 +57,7 @@ Route::middleware('auth')
             return \Illuminate\Support\Facades\Storage::disk('public')->download('exampleimport.xls');
         })->name('download.exampleimport');
     });
+
+Route::get('/tmp/{asd}', function () {
+
+});

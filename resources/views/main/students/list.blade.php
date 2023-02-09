@@ -3,8 +3,8 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <p class="card-text fw-bold">Students @isset($className)
-                of {{ $className }}
+        <p class="card-text fw-bold">Students @isset($class->name)
+                of {{ $class->name }}
             @endisset</p>
     </div>
     <div class="card-body">
@@ -31,6 +31,22 @@
                 <input class="form-control form-control-sm" name="studentsFile" id="formFileCsv" type="file">
             </div>
             <button class="btn btn-primary btn-sm">Upload</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-header fw-bold">Change Class Name</div>
+    <div class="card-body">
+        @if(session('change_name_success'))
+            <div class="alert alert-success">Changed!</div>
+        @endif
+        <form action="{{ route('classes.update', $class->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <input type="text" class="form-control form-control-sm mb-3" name="className">
+            <button class="btn btn-sm btn-primary">Change</button>
         </form>
     </div>
 </div>

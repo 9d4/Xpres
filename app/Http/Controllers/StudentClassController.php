@@ -79,9 +79,14 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, StudentClass $class)
     {
-        //
+        $request->validate([
+            'className' => 'required',
+        ]);
+
+        $class->update(['name' => $request->className]);
+        return redirect()->back()->with('change_name_success', true);
     }
 
     /**

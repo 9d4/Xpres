@@ -16,7 +16,7 @@ class StudentController extends Controller
 
         return view('main.students.list', [
             'students' => $students,
-            'className' => $class->name,
+            'class' => $class,
         ]);
     }
 
