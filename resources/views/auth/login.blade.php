@@ -14,6 +14,12 @@
                             <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
                         </div>
                         @endif
+                        @if(session('err_login_semaphore'))
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Failed!</strong> Unable to bring you in.
+                                <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                         <form method="post">
                             @csrf
                             <div class="input-group mb-3">
@@ -40,6 +46,14 @@
                             <div class="row">
                                 <div class="col-6">
                                     <button class="btn btn-primary px-4" type="submit">Login</button>
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center text-muted mt-3">
+                                    <span class="line" style="border-bottom: 2px solid rgba(44,56,74,.38);width: 100%;margin: 0 1px 0 20%;"></span>
+                                    <span class="text-center px-3">Or</span>
+                                    <span class="line" style="border-bottom: 2px solid rgba(44,56,74,.38);width: 100%;margin: 0 20% 0 1px;"></span>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a class="btn" style="background-color: #ffcc33!important;" role="button" href="{{ route('login', ['with' => 'semaphore']) }}">Login with Semaphore</a>
                                 </div>
                             </div>
                         </form>
