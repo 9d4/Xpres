@@ -33,6 +33,7 @@ Route::middleware('auth')
     ->prefix('main')
     ->group(function () {
         Route::view('/', 'main.index');
+        Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 
         Route::get('classes', [StudentClassController::class, 'index'])->name('classes');
         Route::post('classes', [StudentClassController::class, 'store']);
@@ -57,7 +58,3 @@ Route::middleware('auth')
             return \Illuminate\Support\Facades\Storage::disk('public')->download('exampleimport.xls');
         })->name('download.exampleimport');
     });
-
-Route::get('/tmp/{asd}', function () {
-
-});

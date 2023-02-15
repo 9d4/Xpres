@@ -37,7 +37,13 @@
                 <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
             </ul>
             <ul class="header-nav d-none d-md-flex ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-link nav-link " type="submit">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </header>

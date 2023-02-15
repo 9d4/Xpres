@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         if ($request->query('from') == 'semaphore') {
             return $this->callbackFromSemaphore($request);
         }
@@ -21,7 +22,8 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->only([
             'username',
             'password',
@@ -34,7 +36,8 @@ class AuthController extends Controller
         return back();
     }
 
-    public function callbackFromSemaphore(Request $request) {
+    public function callbackFromSemaphore(Request $request)
+    {
         $authCode = $request->query('code');
         $state = $request->query('state');
 
@@ -93,7 +96,14 @@ class AuthController extends Controller
             'state' => $state,
         );
 
-        $targetAuthorization = env('SEMAPHORE_URL'). '/oauth2/authorize?' . http_build_query($query);
+        $targetAuthorization = env('SEMAPHORE_URL') . '/oauth2/authorize?' . http_build_query($query);
         return redirect($targetAuthorization, 302);
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        return redirect()->route('login');
     }
 }
